@@ -1,0 +1,63 @@
+.container-home {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    & .navbar {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-right: 5%;
+        padding-left: 5%;
+
+        & .navbar-brand {
+            margin-right: 25px;
+        }
+
+        & .logout {
+            margin: 0 0 0 15px;
+            cursor: pointer;
+        }
+
+        & .form-inline {
+            display: flex;
+            flex: 1;
+            justify-content: flex-end;
+
+            & .form-control {
+                margin-right: 10px;
+                width: 80%;
+            }
+
+            & .btn-info {
+                width: 100px
+            }
+        }
+    }
+
+    & .main {
+        padding: 20px 10% 20px 10%;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        & .students {
+            cursor: default;
+            font-size: 25px;
+            margin-top: 20px;
+
+        }
+
+        & .students-body {
+            height: auto;
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+    }
+}

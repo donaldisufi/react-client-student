@@ -1,0 +1,18 @@
+.std-item {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    padding: 15px 10px 15px 30px;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    & span {
+        font-size: 20px;
+        margin-right: 20px;
+        text-align: center;
+        font-weight: 500;
+    }
+}
