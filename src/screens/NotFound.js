@@ -4,7 +4,7 @@ export default () => {
     return (
         <div className="container flex-center center">
             <h2>
-                Not Found
+                Not Found   
             </h2>
         </div>
     )
