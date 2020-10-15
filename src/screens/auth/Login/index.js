@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getIsLoggin, actions as authActions, getLoading, getError } from '../../../redux/thunk/app/auth';
 import { Redirect } from 'react-router-dom';
 import * as toast from '../../../common/toast';
+import { HOME_PATH } from "../../../common/constants";
 
 
 function Login(props) {
@@ -24,7 +25,7 @@ function Login(props) {
     if (isLoggedIn) {
         return (
             <Redirect
-                to={{ pathname: "/", state: { from: props.location } }}
+                to={{ pathname: HOME_PATH, state: { from: props.location } }}
             />
         )
     }

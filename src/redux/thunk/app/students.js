@@ -29,7 +29,7 @@ const Reducer = (state = initialState, action) => {
         case LOADING:
             return {
                 ...state,
-                loading: !state.loading
+                loading:action.payload
             }
         case ERROR:
             return {
@@ -49,7 +49,7 @@ export const actions = {
     onfetchAllStudents: function () {
         return async dispatch => {
             try {
-                await timeout(1000);
+                await timeout(500);
                 const list = require('../../../json/students.json');
                 dispatch({ type: SET_LIST, payload: list });
             }
@@ -57,23 +57,23 @@ export const actions = {
                 dispatch({ type: ERROR, payload: error });
             }
             finally {
-                dispatch({ type: LOADING });
+                dispatch({ type: LOADING ,payload:false});
             }
         }
     },
     searchByName: function (name) {
         return async dispatch => {
             try {
-                dispatch({ type: LOADING });
-                await timeout(1000);
-                const list = require('../../../json/students.json').filter(item => item.name.trim().includes(name.trim()));
+                dispatch({ type: LOADING ,payload:true});
+                await timeout(500);
+                const list = require('../../../json/students.json').filter(item => item.id.trim().toLocaleLowerCase().includes(name.trim().toLocaleLowerCase()));
                 dispatch({ type: SET_LIST, payload: list });
             }
             catch (error) {
                 dispatch({ type: ERROR, payload: error });
             }
             finally {
-                dispatch({ type: LOADING });
+                dispatch({ type: LOADING,payload:false });
             }
         }
     }
