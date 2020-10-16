@@ -37,7 +37,7 @@ function App() {
 
 
   return (  
-    <Router>
+    <HashRouter>
         <Switch>
           <Route path={LOGIN_PATH} exact component={Login} />
           <PrivateRoute path={HOME_PATH} exact component={Home} />
@@ -48,7 +48,7 @@ function App() {
           <Route component={NotFound} />
         </Switch>
         <ToastContainer />
-    </Router>
+    </HashRouter>
   );
 }
 

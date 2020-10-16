@@ -16,3 +16,44 @@
         font-weight: 500;
     }
 }
+
+.radio-button-container{
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 20px;
+
+     & .select {
+        width: 24px;
+        height: 24px;
+        box-sizing: border-box;
+        background-color: #FFFFFF;
+        border: 1px solid #96A1A5;
+        border-radius: 50%;
+        transition: ease 1sec;
+    }
+
+    & .selected {
+        width: 24px;
+        height: 24px;
+        background: #F9F9F9;
+        border: 8px solid #0D657E;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transition: ease 1sec;
+    }
+
+    & p {
+        font-style: normal;
+        font-weight: normal;
+        color: #252525;
+        line-height: 32px;
+        font-size: 24px;
+        margin-bottom: 0;
+        margin-left: 12px;
+        font-size: 16px;
+    }
+}

@@ -8,8 +8,8 @@ import { STUDENT_REGISTER_PATH, EXAM_REGISTER_PATH, EXAMS_PATH, HOME_PATH, LOGIN
 const placeholders = {
     [HOME_PATH]:"Search Student by ID",
     [EXAMS_PATH]:"Search Exam by Student ID"
-}
-const pathToShowSearch = ["/",EXAMS_PATH];
+};
+const pathToShowSearch = [HOME_PATH,EXAMS_PATH];
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
     const dispatch = useDispatch();
