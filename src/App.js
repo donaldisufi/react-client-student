@@ -37,18 +37,18 @@ function App() {
 
 
   return (  
-    <HashRouter>
+    <Router>
         <Switch>
           <Route path={LOGIN_PATH} exact component={Login} />
           <PrivateRoute path={HOME_PATH} exact component={Home} />
-          <PrivateRoute path={STUDENT_REGISTER_PATH} exact component={RegisterStudent} />
-          <PrivateRoute path={EXAM_REGISTER_PATH} exact component={RegisterExam} />
-          <PrivateRoute path={STUDENT_DETAILS_PATH} exact component={StudentDetails} />
-          <PrivateRoute path={EXAMS_PATH} exact component={Exams} />
+          <PrivateRoute path={STUDENT_REGISTER_PATH}  component={RegisterStudent} />
+          <PrivateRoute path={EXAM_REGISTER_PATH}  component={RegisterExam} />
+          <PrivateRoute path={STUDENT_DETAILS_PATH}  component={StudentDetails} />
+          <PrivateRoute path={EXAMS_PATH}  component={Exams} />
           <Route component={NotFound} />
         </Switch>
         <ToastContainer />
-    </HashRouter>
+    </Router>
   );
 }
 

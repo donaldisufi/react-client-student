@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
 import './style.scss';
+import React, { useState, useEffect } from 'react';
 import { Dropdown } from 'react-bootstrap';
+
 import RadioButton from '../../components/RadioButton';
 import * as toast from '../../common/toast';
+
 import { getError, getLoading, actions as registerStudentActions, getFormStatus, FORM_STATUS } from '../../redux/thunk/app/registerStudent';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -11,12 +13,13 @@ const deparments = [{ id: 1, name: "Mobile dhe cloud" }, { id: 2, name: "Siguri 
 const statuses = [{ id: 1, name: "aktiv" }, { id: 2, name: "diplomuar" }, { id: 3, name: "regjistruar" }, { id: 4, name: "suspenduar" }];
 
 function RegisterStudent(props) {
-    const [values, setValues] = useState({ name: '', lastName: '',studentId:'', birthDate: '', status: {}, department: deparmentInitialValue });
+    const [values, setValues] = useState({ name: '', lastName: '', studentId: '', birthDate: '', status: {}, department: deparmentInitialValue });
     const loading = useSelector(getLoading);
     const error = useSelector(getError);
     const formStatus = useSelector(getFormStatus);
 
     const dispatch = useDispatch();
+
     const onSelectStatus = id => setValues({ ...values, status: statuses.find(item => item.id === id) });
     const onSelectDepartment = id => setValues({ ...values, department: deparments.find(item => item.id === parseInt(id)) })
 
@@ -51,25 +54,22 @@ function RegisterStudent(props) {
         }
         dispatch(registerStudentActions.registerStudent(values));
     }
-    const handleChange=({ target: { value } }, key)=>{
-        console.log("target",value);
-        setValues(prevState => ({...prevState,[key]:value}));
-    }
+    const handleChange = ({ target: { value } }, key) => setValues(prevState => ({ ...prevState, [key]: value }));
+    
     useEffect(() => {
         if (error) {
             toast.error(error.message);
         }
     }, [error]);
 
-    useEffect(()=>{
-        if(formStatus===200){
-        toast.success("studenti me id "+values.studentId+" u regjistrua me suksess");
-        setValues({name: '', lastName: '',studentId:'',birthDate: '', status: {}, department: deparmentInitialValue });
-        dispatch({type:FORM_STATUS,payload:0});
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[formStatus]);
+    useEffect(() => {
+        if (formStatus === 200) {
+            toast.success("studenti me id " + values.studentId + " u regjistrua me suksess");
+            setValues({ name: '', lastName: '', studentId: '', birthDate: '', status: {}, department: deparmentInitialValue });
+            dispatch({ type: FORM_STATUS, payload: 0 });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [formStatus]);
     return (
         <div className="container-student-register">
             <div className="title">
@@ -86,7 +86,7 @@ function RegisterStudent(props) {
                             className="form-control"
                             placeholder="First name"
                             value={values.name}
-                            onChange={e=>handleChange(e,'name')}
+                            onChange={e => handleChange(e, 'name')}
                             required
                         />
                     </div>
@@ -97,7 +97,7 @@ function RegisterStudent(props) {
                             className="form-control"
                             placeholder="Last name"
                             value={values.lastName}
-                            onChange={e=>handleChange(e,'lastName')}
+                            onChange={e => handleChange(e, 'lastName')}
                             required
                         />
                     </div>
@@ -111,7 +111,7 @@ function RegisterStudent(props) {
                             className="form-control"
                             placeholder="Birth Date"
                             value={values.birthDate}
-                            onChange={e=>handleChange(e,'birthDate')}
+                            onChange={e => handleChange(e, 'birthDate')}
                             required
                         />
                     </div>
@@ -123,7 +123,7 @@ function RegisterStudent(props) {
                             className="form-control"
                             placeholder="Ex : 180078k"
                             value={values.studentId}
-                            onChange={e=>handleChange(e,'studentId')}
+                            onChange={e => handleChange(e, 'studentId')}
                             required
                         />
                     </div>
@@ -142,20 +142,14 @@ function RegisterStudent(props) {
                     </Dropdown>
 
                 </div>
-
                 <br />
-                <br />
-
                 <div className="col" style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
                     <label>Statusi :</label>
                     <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                         {_renderStatuses()}
                     </div>
                 </div>
-                
                 <br />
-                <br />
-
                 <button
                     disabled={loading}
                     type="submit"
