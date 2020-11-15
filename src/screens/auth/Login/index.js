@@ -2,15 +2,20 @@ import "./style.scss";
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getIsLoggin, actions as authActions, getLoading, getError } from '../../../redux/thunk/app/auth';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import * as toast from '../../../common/toast';
-import { HOME_PATH } from "../../../common/constants";
+import { API, HOME_PATH, TOKEN_NAME } from "../../../common/constants";
+import Axios from "axios";
+
+import configAxios from '../../../utils/configAxios';
 
 
 function Login(props) {
     var regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    const history = useHistory();
 
-    const isLoggedIn = useSelector(getIsLoggin);
+    const isLoggedIn = localStorage.getItem(TOKEN_NAME);
+
     const loading = useSelector(getLoading);
     const error = useSelector(getError);
 
@@ -40,7 +45,22 @@ function Login(props) {
             return;
         }
 
-        dispatch(authActions.logInWithEmail(credentials));
+        Axios({
+            method:"POST",
+            baseURL:API,
+            url:"/api/login",
+            data :{
+                UserName:credentials.email,
+                Password:credentials.password
+            }
+        }).then(res => {
+           localStorage.setItem(TOKEN_NAME,res.data.token);
+           history.push(HOME_PATH);     
+           configAxios(res.data.token);
+        })
+        .catch((err)=>{
+            toast.error("Error",err.message);
+        })
     }
 
     const handleChange = ({ target: { value } }, key) => {
@@ -55,7 +75,7 @@ function Login(props) {
         let error = null;
         const { email, password } = credentials;
 
-        if (!regex.test(email)) {
+        if (email.length<3) {
             return { message: "Please write a correct email address", field: 'email' }
         }
         if (password.length < 6) {
@@ -73,7 +93,7 @@ function Login(props) {
                         <input
                             disabled={loading}
                             value={credentials.email}
-                            type="email"
+                            type="text"
                             onChange={(e) => handleChange(e, 'email')}
                             className={`form-control ${errorField === 'email' && 'border-danger'}`}
                             id="exampleInputEmail1"

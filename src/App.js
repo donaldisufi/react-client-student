@@ -16,6 +16,7 @@ import RegisterStudent from './screens/RegisterStudent';
 import RegisterExam from './screens/RegisterExam';
 import StudentDetails from './screens/StudentDetails';
 import Exams from './screens/Exams';
+import configAxios from './utils/configAxios';
 
 
 function App() {
@@ -28,8 +29,12 @@ function App() {
 
   useEffect(() => {
     const isToken = localStorage.getItem(TOKEN_NAME);
+    configAxios(isToken);
+
     if (isToken) {
+      configAxios(isToken);
       dispatch({ type: LOGG_IN });
+
       return;
     }
     dispatch({ type: LOGG_OUT });

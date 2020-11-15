@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Route, Redirect, NavLink } from 'react-router-dom';
+import { Route, Redirect, NavLink, useHistory } from 'react-router-dom';
 import { getIsLoggin, actions as authActions } from '../redux/thunk/app/auth';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions as studentActions } from '../redux/thunk/app/students';
-import { STUDENT_REGISTER_PATH, EXAM_REGISTER_PATH, EXAMS_PATH, HOME_PATH, LOGIN_PATH } from '../common/constants';
+import { STUDENT_REGISTER_PATH, EXAM_REGISTER_PATH, EXAMS_PATH, HOME_PATH, LOGIN_PATH, TOKEN_NAME } from '../common/constants';
 
 const placeholders = {
     [HOME_PATH]:"Search Student by ID",
@@ -12,12 +12,14 @@ const placeholders = {
 const pathToShowSearch = [HOME_PATH,EXAMS_PATH];
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState('');
-    const isLoggedIn = useSelector(getIsLoggin);
+    const isLoggedIn = localStorage.getItem(TOKEN_NAME);
 
     const onLogOut = () => {
-        dispatch(authActions.logOut());
+        localStorage.removeItem(TOKEN_NAME);
+        history.push(LOGIN_PATH);
     };
 
     const onSearchStudent = e => {

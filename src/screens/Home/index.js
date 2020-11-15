@@ -6,6 +6,7 @@ import { getStudents, actions as studentsActions, getLoading } from '../../redux
 import StudentItem from '../../components/StudentItem';
 import Loading from '../../common/Loading';
 import { NavLink } from 'react-router-dom';
+import Axios from 'axios';
 
 
 function Home(props) {
@@ -18,6 +19,12 @@ function Home(props) {
     
     useEffect(() => {
         dispatch(studentsActions.onfetchAllStudents());
+        Axios.get("/api/afatets").then((data)=>{
+            console.log("data",data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
     }, []);
     const onClickStudent = id => {
 
@@ -34,6 +41,7 @@ function Home(props) {
             />
         ))
     }
+    
     return (
         <div className="container-home">
             <div className="main">
